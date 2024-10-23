@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PostDetailView: View {
-    let meeting: Meeting
+    let post: PostInfo
     
     var body: some View {
         ScrollView {
@@ -19,19 +19,19 @@ struct PostDetailView: View {
                     .cornerRadius(15)
                 
                 HStack {
-                    TagView(text: meeting.location)
+                    TagView(text: post.location)
                 }
                 
                 // 모임 제목
-                Text(meeting.title)
+                Text(post.title)
                     .font(.title)
                 HStack {
                     Image(systemName: "location.square.fill")
-                    Text(meeting.location)
+                    Text(post.location)
                     Image(systemName: "calendar.circle.fill")
-                    Text(meeting.time)
+                    Text(post.time)
                     Image(systemName: "person.2.circle.fill")
-                    Text("현재 인원: \(meeting.members)")
+                    Text("현재 인원: \(post.members)")
                 }
                 .font(.footnote)
                 

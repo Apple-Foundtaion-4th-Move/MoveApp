@@ -189,6 +189,7 @@ struct PostCreatView: View {
             VStack {
                 Button(action: {
                     print("버튼 누르면 실행")
+                    
                 }) {
                     Text("개설하기")
                         .foregroundColor(.white)

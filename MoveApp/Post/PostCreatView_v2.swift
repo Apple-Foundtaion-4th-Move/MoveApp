@@ -72,21 +72,6 @@ struct PostCreatView_v2: View {
                 
             }
             
-            //            // 참여 인원
-            //            HStack {
-            //                Text("참여 인원")
-            //                    .padding(.horizontal, 22)
-            //                    .frame(alignment: .leading)
-            //
-            //                Picker("인원을 선택하세요", selection: $RunnerCount) {
-            //                    ForEach(RunCount, id: \.self) { count in
-            //                        Text(count)
-            //                    }
-            //                }
-            //                .pickerStyle(WheelPickerStyle())
-            //                Spacer()
-            //            }
-            
             
             // 참여 인원
             HStack {

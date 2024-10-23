@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Meeting: Identifiable {
+struct PostInfo: Identifiable {
     let id = UUID()
     let title: String
     let location: String
@@ -16,26 +16,15 @@ struct Meeting: Identifiable {
 }
 
 struct PostView: View {
+    @ObservedObject var postManager = PostManager()
     @State private var searchText: String = ""
     @FocusState private var isTextFieldFocused: Bool // 키보드 상태
     
-    @State private var meetings = [
-        Meeting(title: "영일대 석양 러닝", location: "포항시", time: "11.2(토) 오후 1:30", members: "3/8"),
-        Meeting(title: "소통하며 러닝해요", location: "포항시", time: "11.3(일) 오후 1:30", members: "3/8"),
-        Meeting(title: "마라톤 준비 러닝", location: "포항시", time: "11.3(일) 오후 1:30", members: "3/8"),
-        Meeting(title: "트레일 러닝 갈 사람", location: "태백시", time: "11.3(일) 오후 1:30", members: "8/8"),
-        Meeting(title: "트레일 러닝 갈 사람", location: "태백시", time: "11.3(일) 오후 1:30", members: "8/8"),
-        Meeting(title: "트레일 러닝 갈 사람", location: "태백시", time: "11.3(일) 오후 1:30", members: "8/8"),
-        Meeting(title: "트레일 러닝 갈 사람", location: "태백시", time: "11.3(일) 오후 1:30", members: "8/8"),
-        Meeting(title: "트레일 러닝 갈 사람", location: "태백시", time: "11.3(일) 오후 1:30", members: "8/8")
-    ]
-    
-    
-    var filteredMeetings: [Meeting] {
+    var filteredMeetings: [PostInfo] {
         if searchText.isEmpty {
-            return meetings
+            return postManager.posts
         } else {
-            return meetings.filter { $0.title.contains(searchText) }
+            return postManager.posts.filter { $0.title.contains(searchText) || $0.location.contains(searchText) }
         }
     }
     
@@ -74,21 +63,21 @@ struct PostView: View {
                 // 모임 리스트
                 
                 List {
-                    ForEach(filteredMeetings) { meeting in
-                        NavigationLink(destination: PostDetailView(meeting: meeting)) {
+                    ForEach(filteredMeetings) { post in
+                        NavigationLink(destination: PostDetailView(post: post)) {
                             VStack(alignment: .leading) {
-                                Text(meeting.title)
+                                Text(post.title)
                                     .font(.title2)
                                 HStack {
                                     Image(systemName: "location.circle.fill")
-                                    Text(meeting.location)
+                                    Text(post.location)
                                     Spacer()
                                     Image(systemName: "calendar.circle.fill")
-                                    Text(meeting.time)
+                                    Text(post.time)
                                     Spacer()
                                     HStack {
                                         Image(systemName: "person.3")
-                                        Text(meeting.members)
+                                        Text(post.members)
                                     }
                                 }
                                 .font(.subheadline)
