@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct PostCreatView: View {
+    @ObservedObject var postManager: PostManager
+    @Environment(\.presentationMode) var presentationMode
+    
     @State private var RunCreateText: String = "" // 제목 저장하는 변수
     @State private var SelectedDate = Date() // 날짜 저장하는 변수
     @State private var SelectedLocation = "서울" // 위치 선택하는 변수
@@ -52,9 +55,9 @@ struct PostCreatView: View {
                     .padding(.top, 10)
             }
             
-            // 캘린더
+            // 캘린더 및 시간 선택
             VStack {
-                DatePicker("모임 날짜", selection: $SelectedDate, displayedComponents: .date)
+                DatePicker("모임 날짜 및 시간", selection: $SelectedDate, displayedComponents: [.date, .hourAndMinute])
                     .datePickerStyle(CompactDatePickerStyle()) // 컴팩트 스타일
                     .padding(.horizontal, 22)
                     .padding(.top, 8)
@@ -188,18 +191,24 @@ struct PostCreatView: View {
             // 개설하기 버튼
             VStack {
                 Button(action: {
-                    print("버튼 누르면 실행")
+                    let timeFormatter = DateFormatter()
+                    timeFormatter.dateFormat = "MM.dd(EEE) h:mm"
+                    let formattedDate = timeFormatter.string(from: SelectedDate)
+                    print(formattedDate)
+                    
+                    postManager.addPost(title: RunCreateText, location: SelectedLocation, time: formattedDate, members: "1/\(RunnerCount)", text: TextAdd)
+                    
+                    presentationMode.wrappedValue.dismiss()
                     
                 }) {
                     Text("개설하기")
                         .foregroundColor(.white)
                         .padding(.horizontal, 80)
                         .padding(.vertical, 15)
-                        .background(Color(.systemTeal))
+                        .background(CustomColor)
                         .cornerRadius(10)
 
                 }
-                
                 
             }
             
@@ -210,5 +219,5 @@ struct PostCreatView: View {
 } // RunCreateView 전체
 
 #Preview {
-    PostCreatView()
+    PostView()
 }

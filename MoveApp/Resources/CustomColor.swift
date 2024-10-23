@@ -6,3 +6,6 @@
 //
 
 import Foundation
+import SwiftUICore
+
+let CustomColor = Color(red: 0.518, green: 0.333, blue: 0.965)

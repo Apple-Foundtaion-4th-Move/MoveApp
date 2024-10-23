@@ -18,11 +18,11 @@ struct ProfileView: View {
                     .font(.largeTitle.bold())
                     .padding(.vertical)
                 Spacer() // 텍스트와 이미지 사이 공간 최대화
-                Image(systemName: "bell.fill") // 종 모양 이미지
+                Image(systemName: "bell") // 종 모양 이미지
                     .resizable() // 이미지 사이즈 변경할 수 있게 허용
                     .frame(width: 26, height: 30) // 종 사이즈
                     .padding(.horizontal, 15) // 종과 톱니바퀴 사이 간격 가로 패딩
-                Image(systemName: "gearshape.fill") // 톱니바퀴 모양 이미지
+                Image(systemName: "gearshape") // 톱니바퀴 모양 이미지
                     .resizable()
                     .frame(width: 30, height: 30)
             }
@@ -31,7 +31,7 @@ struct ProfileView: View {
             
             // 프로필 사진, 이름, 키워드
             HStack{
-                Image("ProfileImage") // 프로필 사진 이미지
+                Image("Profile2") // 프로필 사진 이미지
                     .resizable() // 이미지 사이즈 변경 허용
                     .frame(width: 100, height: 100)
                 Spacer()
@@ -59,7 +59,7 @@ struct ProfileView: View {
                             Text("36.8")
                         }
                         .frame(width: 70, height: 100) // 스마일 외각
-                        .background(Color.teal.opacity(0.3)) // 스마일 외각 색상
+                        .background(CustomColor.opacity(0.3)) // 스마일 외각 색상
                         .cornerRadius(20) // 스마일 외각 라디언스(둥글게)
                         .padding(.horizontal, 20) // 이름, 위치와의 가로 패딩
                         
@@ -85,7 +85,7 @@ struct ProfileView: View {
                     }
                     
                 } // VStack (이름, 새싹), 위치, 온도, 키워드 세로 쌓기
-                
+                            
             } // HStack 프로필 사진, 이름, 키워드 다 포함된 블록
             .padding(.horizontal, 30) // 가로 패딩
             .padding(.vertical, 5) // 세로 패딩
@@ -100,7 +100,7 @@ struct ProfileView: View {
                             .font(.system(size: 24, weight: .bold))
                         Text("참여 예정 러닝")
                             .frame(maxWidth: .infinity)
-                            .foregroundColor(.black.opacity(0.6))
+                            .foregroundColor(.secondary)
                             .font(.system(size: 13, weight: .bold))
                         
                     }
@@ -113,7 +113,7 @@ struct ProfileView: View {
                             .foregroundColor(.black)
                             .font(.system(size: 24, weight: .bold))
                         Text("이번 달 뛴 거리")
-                            .foregroundColor(.black.opacity(0.6))
+                            .foregroundColor(.secondary)
                             .font(.system(size: 13, weight: .bold))
                     }
                     .padding(.horizontal, 20)
@@ -121,7 +121,7 @@ struct ProfileView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .frame(height: 70)
-                .background(Color.gray.opacity(0.15))
+                .background(.gray.opacity(0.1))
                 
                 
                 
@@ -150,7 +150,9 @@ struct ProfileView: View {
                         .cornerRadius(15)
                 }
             }
+            .padding()
             .frame(maxWidth: .infinity) // 가운데 정렬
+            .cornerRadius(60)
             
             // 러닝 정보
             VStack{
@@ -161,8 +163,8 @@ struct ProfileView: View {
                             .font(.system(size: 18, weight: .bold))
                         Text("KM")
                             .frame(maxWidth: .infinity)
-                            .foregroundColor(.black.opacity(0.6))
-                            .font(.system(size: 13, weight: .bold))
+                            .foregroundColor(.secondary)
+                            .font(.system(size: 13))
                         
                     }
                     .padding(.leading, 10)
@@ -212,7 +214,9 @@ struct ProfileView: View {
             Divider()
             Spacer() // VStack과 HStack 사이 공간 최대화
             
+            
         }
+        .background(CustomColor.opacity(0.03))
 
     }
 }

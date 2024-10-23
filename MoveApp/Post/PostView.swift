@@ -7,14 +7,6 @@
 
 import SwiftUI
 
-struct PostInfo: Identifiable {
-    let id = UUID()
-    let title: String
-    let location: String
-    let time: String
-    let members: String
-}
-
 struct PostView: View {
     @ObservedObject var postManager = PostManager()
     @State private var searchText: String = ""
@@ -30,24 +22,25 @@ struct PostView: View {
     
     var body: some View {
         NavigationView {
+
             VStack {
                 HStack {
                     Text("모임 탐색")
                         .font(.largeTitle.bold())
                         .padding(.vertical)
                     Spacer()
-                    NavigationLink(destination: PostCreatView()) {
-                        Image(systemName: "plus")
-                            .font(.title)
-                            .padding()
+                    NavigationLink(destination: PostCreatView(postManager: postManager)) {
+                        Image(systemName: "plus.circle.fill")
+                            .font(.system(size: 40))
+                            .foregroundStyle(CustomColor)
                     }
                 }
                 .padding(.horizontal)
                 
                 // 상단 검색창
                 HStack {
-                    TextField("검색어", text: $searchText, prompt: Text("검색어를 입력하세요.")
-                        .foregroundColor(.black))
+                    TextField("검색어", text: $searchText, prompt: Text("제목, 키워드로 검색해봐요.")
+                        .foregroundColor(.gray))
                         .submitLabel(.search)  //  "검색" 버튼
                         .autocorrectionDisabled(true)
                     Image(systemName: "magnifyingglass")
@@ -55,11 +48,31 @@ struct PostView: View {
                 .onAppear(perform: UIApplication.shared.hideKeyboard)
                 .scrollDismissesKeyboard(.immediately)
                 .padding(.horizontal, 10)
-                .frame(width: 360, height: 50)
-                .background(.cyan.opacity(0.1))
+                .frame(width: 380, height: 50)
+                .background(.gray.opacity(0.1))
                 .cornerRadius(12)
-                    
+                .padding()
                 
+                // 광고
+                HStack {
+                    Image("Apple_logo")
+                        .resizable()
+                        .frame(width: 45, height: 45)
+                        .cornerRadius(10)
+                    VStack(alignment: .leading) {
+                        Text("애플 파운데이션 프로그램 4기 수료 D-1")
+                            .font(.headline.bold())
+                            .foregroundStyle(.black)
+                        Text("회식 가즈아 ~~~!")
+                            .font(.caption)
+                            .foregroundStyle(.black.opacity(0.6))
+
+                    }
+                }
+                .frame(width: 370, height: 75)
+                .background(CustomColor.opacity(0.7))
+                .cornerRadius(10)
+                .shadow(radius: 10)
                 // 모임 리스트
                 
                 List {
@@ -67,28 +80,51 @@ struct PostView: View {
                         NavigationLink(destination: PostDetailView(post: post)) {
                             VStack(alignment: .leading) {
                                 Text(post.title)
-                                    .font(.title2)
+                                    .font(.title2.bold())
+                                    .padding(.bottom, 4)
                                 HStack {
                                     Image(systemName: "location.circle.fill")
+                                        .foregroundColor(CustomColor)
                                     Text(post.location)
+                                        .foregroundColor(.secondary)
                                     Spacer()
                                     Image(systemName: "calendar.circle.fill")
+                                        .foregroundColor(CustomColor)
                                     Text(post.time)
+                                        .foregroundColor(.secondary)
                                     Spacer()
                                     HStack {
                                         Image(systemName: "person.3")
+                                            .foregroundColor(CustomColor)
                                         Text(post.members)
+                                            .foregroundColor(.secondary)
                                     }
                                 }
                                 .font(.subheadline)
-                                .foregroundColor(.gray)
+                                .padding(.vertical, 4)
                             }
-                            .padding(.vertical, 8)
+                            .frame(width: 340, height: 60)
+                            .padding(.horizontal, 1)
+                            .background(CustomColor.opacity(0.03))
+                            .cornerRadius(10)
+                            
                         }
+                        .buttonStyle(PlainButtonStyle())
+                        .listRowSeparator(.hidden)
+                        .padding(.vertical, 1)
+                        .shadow(radius: 0.1)
+                        
                     }
                 }
+                HStack {
+                    
+                    
+                }
+                
                 .listStyle(PlainListStyle())
             }
+            .background(CustomColor.opacity(0.03))
+
         }
     }
 }
