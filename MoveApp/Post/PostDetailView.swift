@@ -26,86 +26,84 @@ struct PostDetailView: View {
     ]
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 15) {
-                Image("map")
-                    .resizable()
-                    .frame(width: 380, height: 200)
-                    .cornerRadius(15)
-                
-                HStack {
-                    TagView(text: post.location)
-                }
-                
-                // 모임 제목
-                Text(post.title)
-                    .font(.title)
-                HStack(alignment: .center) {
-                    Image(systemName: "location.square.fill")
-                        .foregroundStyle(CustomColor)
-                    Text(post.location)
-                    Image(systemName: "calendar.circle.fill")
-                        .foregroundStyle(CustomColor)
-                    Text(post.time)
-                    Image(systemName: "person.2.circle.fill")
-                        .foregroundStyle(CustomColor)
-                    Text("현재 인원: \(post.members)")
-                }
-                .font(.footnote)
-                // 상세설명 박스
-                Text("상세 설명")
-                    .font(.title2)
-                    .padding(.vertical, 10)
-                
-                Text(post.text)
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(nil) // 줄 수 제한 (UIKit과 다르게 옵셔널로 되어 있어 nil일 때 제한 없음
-                    .padding()
-                // .frame(width: 380, height: 200) // 텍스트뷰 자체 크기 설정
-                    .background(CustomColor.opacity(0.03)) // 텍스트뷰 배경색 지정
-                    .cornerRadius(10) // 텍스트뷰 라운드 설정
-                
-                Text("참여자")
-                    .font(.title2)
-                    .padding(.vertical, 10)
-
-                GeometryReader { geometry in
-                    VStack(alignment: .leading) {
-                        Text("참가자 목록")
-                            .font(.headline)
-                            .padding(.horizontal)
-                        
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack {
-                                ForEach(participants) { participant in
-                                    VStack {
-                                        Image(participant.image)
-                                            .resizable()
-                                            .frame(width: 50, height: 50)
-                                            .clipShape(Circle())
-                                            .overlay(Circle().stroke(CustomColor.opacity(0.5), lineWidth: 1))
-                                        Text(participant.name)
-                                            .font(.subheadline)
-                                            .bold()
-                                        Text(participant.message)
-                                            .font(.caption)
-                                            .foregroundColor(.gray)
-                                    }
-                                    .padding(.horizontal)
+        VStack(alignment: .leading, spacing: 15) {
+            Image("map")
+                .resizable()
+                .frame(width: 380, height: 200)
+                .cornerRadius(15)
+            
+            HStack {
+                TagView(text: post.location)
+            }
+            
+            // 모임 제목
+            Text(post.title)
+                .font(.title)
+            HStack(alignment: .center) {
+                Image(systemName: "location.square.fill")
+                    .foregroundStyle(CustomColor)
+                Text(post.location)
+                Image(systemName: "calendar.circle.fill")
+                    .foregroundStyle(CustomColor)
+                Text(post.time)
+                Image(systemName: "person.2.circle.fill")
+                    .foregroundStyle(CustomColor)
+                Text("현재 인원: \(post.members)")
+            }
+            .font(.footnote)
+            // 상세설명 박스
+            Text("상세 설명")
+                .font(.title2)
+                .padding(.vertical, 10)
+            
+            Text(post.text)
+                .multilineTextAlignment(.leading)
+                .lineLimit(nil) // 줄 수 제한 (UIKit과 다르게 옵셔널로 되어 있어 nil일 때 제한 없음
+                .padding()
+            // .frame(width: 380, height: 200) // 텍스트뷰 자체 크기 설정
+                .background(CustomColor.opacity(0.03)) // 텍스트뷰 배경색 지정
+                .cornerRadius(10) // 텍스트뷰 라운드 설정
+            
+            Text("참여자")
+                .font(.title2)
+                .padding(.vertical, 10)
+            
+            GeometryReader { geometry in
+                VStack(alignment: .leading) {
+                    Text("참가자 목록")
+                        .font(.headline)
+                        .padding(.horizontal)
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach(participants) { participant in
+                                VStack {
+                                    Image(participant.image)
+                                        .resizable()
+                                        .frame(width: 50, height: 50)
+                                        .clipShape(Circle())
+                                        .overlay(Circle().stroke(CustomColor.opacity(0.5), lineWidth: 1))
+                                    Text(participant.name)
+                                        .font(.subheadline)
+                                        .bold()
+                                    Text(participant.message)
+                                        .font(.caption)
+                                        .foregroundColor(.gray)
                                 }
+                                .padding(.horizontal)
                             }
                         }
-                        .padding(.vertical)
                     }
-                    .frame(height: geometry.size.height / 3) // 화면의 1/3 차지
-                    .background(CustomColor.opacity(0.1))
-                    .cornerRadius(15)
-                    .shadow(radius: 5)
+                    .padding(.vertical)
                 }
-                .frame(height: UIScreen.main.bounds.height / 3) // 기기 화면 높이의 1/3
+                .frame(height: geometry.size.height / 3) // 화면의 1/3 차지
+                .background(CustomColor.opacity(0.1))
+                .cornerRadius(15)
+                .shadow(radius: 5)
             }
-            .padding()
+            .frame(height: UIScreen.main.bounds.height / 3) // 기기 화면 높이의 1/3
         }
+        .padding()
     }
 }
     

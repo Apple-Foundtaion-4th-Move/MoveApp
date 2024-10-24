@@ -33,7 +33,7 @@ struct ChatView: View {
                 
                 // "채팅" 제목
                 HStack {
-                    Text("모임 탐색")
+                    Text("채팅")
                         .font(.largeTitle.bold())
                         .padding(.vertical)
                     Spacer()
@@ -51,9 +51,10 @@ struct ChatView: View {
                 .onAppear(perform: UIApplication.shared.hideKeyboard)
                 .scrollDismissesKeyboard(.immediately)
                 .padding(.horizontal, 10)
-                .frame(width: 360, height: 50)
+                .frame(width: 380, height: 50)
                 .background(.gray.opacity(0.1))
                 .cornerRadius(12)
+                .padding()
                                 
                 // 채팅방 리스트
                 List {
@@ -62,12 +63,12 @@ struct ChatView: View {
                             VStack(alignment: .leading) {
                                 HStack {
                                     Text(chat.title)
-                                        .font(.title2)
+                                        .font(.headline)
+                                        .padding(.bottom, 1)
                                     Text(chat.members)
                                         .font(.subheadline)
                                         .foregroundStyle(.gray)
                                 }
-                                
                                 HStack {
                                     Text(chat.lastMessage)
                                     Spacer()
@@ -77,9 +78,12 @@ struct ChatView: View {
                                 .font(.subheadline)
                                 .foregroundStyle(.gray)
                             }
-                            .padding(.vertical, 8)
+                            .padding(.vertical, 3)
                         }
+                        .padding(.horizontal, 1)
+                        .cornerRadius(10)
                     }
+                    .listRowSeparator(.hidden)
                 }
                 .listStyle(PlainListStyle())
             } // VStack 전체

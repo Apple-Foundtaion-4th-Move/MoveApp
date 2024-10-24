@@ -54,34 +54,37 @@ struct PostView: View {
                 .padding()
                 
                 // 광고
-                HStack {
-                    Image("Apple_logo")
-                        .resizable()
-                        .frame(width: 45, height: 45)
-                        .cornerRadius(10)
-                    VStack(alignment: .leading) {
-                        Text("애플 파운데이션 프로그램 4기 수료 D-1")
-                            .font(.headline.bold())
-                            .foregroundStyle(.black)
-                        Text("회식 가즈아 ~~~!")
-                            .font(.caption)
-                            .foregroundStyle(.black.opacity(0.6))
-
+                Link(destination: URL(string: "https://developeracademy.postech.ac.kr/foundation-program")!) {
+                    HStack {
+                        Image("Apple_logo")
+                            .resizable()
+                            .frame(width: 45, height: 45)
+                            .cornerRadius(10)
+                        VStack(alignment: .leading) {
+                            Text("애플 파운데이션 프로그램 4기 수료 D-1")
+                                .font(.headline.bold())
+                                .foregroundStyle(.black)
+                            Text("회식 가즈아 ~~~!")
+                                .font(.caption)
+                                .foregroundStyle(.black.opacity(0.6))
+                            
+                        }
                     }
+                    .frame(width: 370, height: 75)
+                    .background(CustomColor.opacity(0.7))
+                    .cornerRadius(10)
+                    .shadow(radius: 10)
                 }
-                .frame(width: 370, height: 75)
-                .background(CustomColor.opacity(0.7))
-                .cornerRadius(10)
-                .shadow(radius: 10)
                 // 모임 리스트
+                .padding(.bottom, 1)
                 
                 List {
                     ForEach(filteredMeetings) { post in
                         NavigationLink(destination: PostDetailView(post: post)) {
                             VStack(alignment: .leading) {
-                                Text(post.title)
-                                    .font(.title2.bold())
-                                    .padding(.bottom, 4)
+                                Text(" " + post.title)
+                                    .font(.headline)
+                                    .padding(.bottom, 1)
                                 HStack {
                                     Image(systemName: "location.circle.fill")
                                         .foregroundColor(CustomColor)
@@ -101,9 +104,8 @@ struct PostView: View {
                                     }
                                 }
                                 .font(.subheadline)
-                                .padding(.vertical, 4)
+                                .padding(.vertical, 3)
                             }
-                            .frame(width: 340, height: 60)
                             .padding(.horizontal, 1)
                             .background(CustomColor.opacity(0.03))
                             .cornerRadius(10)
@@ -116,11 +118,6 @@ struct PostView: View {
                         
                     }
                 }
-                HStack {
-                    
-                    
-                }
-                
                 .listStyle(PlainListStyle())
             }
             .background(CustomColor.opacity(0.03))

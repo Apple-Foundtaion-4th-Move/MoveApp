@@ -94,7 +94,6 @@ struct PostCreatView: View {
                 
             }
             
-            
             // 참여 인원
             HStack {
                 Text("참여 인원 선택")
@@ -194,7 +193,6 @@ struct PostCreatView: View {
                     let timeFormatter = DateFormatter()
                     timeFormatter.dateFormat = "MM.dd(EEE) h:mm"
                     let formattedDate = timeFormatter.string(from: SelectedDate)
-                    print(formattedDate)
                     
                     postManager.addPost(title: RunCreateText, location: SelectedLocation, time: formattedDate, members: "1/\(RunnerCount)", text: TextAdd)
                     
